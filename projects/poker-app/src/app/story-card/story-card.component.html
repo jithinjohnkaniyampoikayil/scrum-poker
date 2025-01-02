@@ -1,0 +1,15 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Votes</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-list>
+            <mat-list-item *ngFor="let vote of votes">
+                <mat-icon matListItemIcon>face</mat-icon>
+                <div matListItemTitle>{{ vote.username }}: @if(showVotes){{{
+                    vote.vote}}}@else{<mat-icon>password</mat-icon>
+                    }</div>
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,12 @@
+<button mat-raised-button color="primary" (click)="showVotes.emit(roomId)">
+    Show Votes
+</button>
+<button mat-raised-button color="primary" (click)="hideVotes.emit(roomId)">
+    Hide Votes
+</button>
+<button mat-raised-button color="primary" (click)="copyRoomId.emit(roomId)">
+    Copy Room ID
+</button>
+<button mat-raised-button color="accent" (click)="clearVotes.emit(roomId)">
+    Clear Votes
+</button>

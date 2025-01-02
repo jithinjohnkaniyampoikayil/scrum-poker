@@ -1,0 +1,14 @@
+@if(!joined) {
+<mat-form-field>
+  <input matInput [(ngModel)]="username" placeholder="Enter your name" />
+</mat-form-field>
+
+<button mat-raised-button color="primary" (click)="join()">Enter</button>
+}@else{
+<div style="margin-top: 5%;margin-bottom: 5%;">
+  <button style="margin-left: 3%;" mat-fab aria-label="story piont" *ngFor="let point of storyPoints"
+    (click)="vote(point)">
+    {{ point }}
+  </button>
+</div>
+}

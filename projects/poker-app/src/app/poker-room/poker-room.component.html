@@ -1,0 +1,50 @@
+<mat-toolbar color="primary">
+    <mat-icon>casino</mat-icon>
+    <span>Scrum Poker Rooms</span>
+</mat-toolbar>
+
+<div class="new-room-container" *ngIf="!isRoomCreated">
+
+    <mat-card appearance="outlined">
+        <mat-card-content>
+            <button mat-raised-button color="primary" (click)="createNewRoom()">
+                Create New Room
+            </button>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card appearance="outlined">
+        <mat-card-content>
+            <form [formGroup]="roomForm" (ngSubmit)="joinRoom()">
+                <mat-form-field>
+                    <mat-label>Enter Room ID</mat-label>
+                    <input matInput formControlName="roomId" />
+                </mat-form-field>
+                <button mat-raised-button color="accent" type="submit">Join Room</button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+
+</div>
+
+<!-- Rest of the template remains the same -->
+
+<mat-tab-group (selectedTabChange)="onRoomChange($event)">
+    <mat-tab *ngFor="let room of rooms" [label]="room.id">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>@if(isUserJoined){ Welcome <b>{{username}}</b>, you have been added to the} room {{
+                    room.id
+                    }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <app-user-input [room]="room.id" (userJoined)="onUserJoined($event, room.id)"></app-user-input>
+                <mat-divider></mat-divider>
+                <app-admin *ngIf="room.isAdmin" [roomId]="room.id" (showVotes)="onShowVotes($event)"
+                    (hideVotes)="onHideVotes($event)" (clearVotes)="onClearVotes($event)"
+                    (copyRoomId)="copyRoomId($event)"></app-admin>
+                <app-story-card [votes]="roomVotes[room.id] || []" [showVotes]="showVotes[room.id]"></app-story-card>
+            </mat-card-content>
+        </mat-card>
+    </mat-tab>
+</mat-tab-group>
