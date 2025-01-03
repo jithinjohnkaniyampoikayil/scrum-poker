@@ -129,4 +129,8 @@ export class PokerRoomComponent implements OnInit {
   onClearVotes(room: string) {
     this.socketService.emit('clearVotes', room);
   }
+
+  reload() {
+    window.location.reload();
+  }
 }

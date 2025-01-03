@@ -1,6 +1,10 @@
 <mat-toolbar color="primary">
     <mat-icon>casino</mat-icon>
     <span>Scrum Poker Rooms</span>
+    <span class="spacer"></span>
+    <button *ngIf="isUserJoined" (click)="reload()" mat-icon-button aria-label="exit">
+        <mat-icon>exit_to_app</mat-icon>
+    </button>
 </mat-toolbar>
 
 <div class="new-room-container" *ngIf="!isRoomCreated">
