@@ -3,8 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --host 0.0.0.0 --disable-host-check",
     "build": "ng build",
+    "build-poker": "ng build poker-app",
+    "start-server": "node server/src/server.js",
+    "start-angular": "ng serve --host 0.0.0.0 --port 4200 --disable-host-check",
+    "build-angular": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

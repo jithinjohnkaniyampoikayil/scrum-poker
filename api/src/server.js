@@ -59,7 +59,7 @@ io.on("connection", (socket) => {
   socket.on("vote", ({ points, room }) => {
     if (rooms.has(room)) {
       setVote(socket, points, room);
-      console.log(`Vote received in room ${room}: ${username} - ${points}`);
+      console.log(`Vote received in room ${room}: - ${points}`);
     }
   });
 
