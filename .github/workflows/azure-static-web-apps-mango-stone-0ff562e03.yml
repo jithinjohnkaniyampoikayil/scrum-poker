@@ -47,5 +47,6 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: scrumpokerui
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          slot-name: production
+          token: ${{ secrets.AZURE_WEBAPP_DEPLOYMENT_TOKEN }}
           package: release.zip
