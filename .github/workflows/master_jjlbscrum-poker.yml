@@ -1,9 +1,9 @@
-name: Build and deploy Angular and Node.js app to Azure Web App - scrumpoker1
+name: Build and deploy Angular and Node.js app to Azure Web App - jjlbscrum-poker
 
 on:
   push:
     branches:
-      - master
+      - test-githug-actions
   workflow_dispatch:
 
 jobs:
@@ -28,23 +28,20 @@ jobs:
         run: |
           cd api
           npm install
+          
 
       - name: Prepare Deployment Package
         run: |
           mkdir -p deployment
-          cp -r dist/poker-app deployment/
-          cp -r api deployment/
-          cp Dockerfile deployment/
+          cp -r dist/poker-app/* deployment/
+          cp -r api/* deployment/
           cp nginx.conf deployment/
-          cd deployment
-          zip -r ../release.zip .
-          cd ..
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: angular-node-app
-          path: release.zip
+          path: deployment
 
   deploy:
     runs-on: ubuntu-latest
@@ -54,7 +51,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: angular-node-app
-          path: .
+          path: deployment
 
       - name: Azure Login
         uses: azure/login@v1
@@ -65,4 +62,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: jjlbscrum-poker
-          package: release.zip
+          slot-name: production
+          package: deployment
