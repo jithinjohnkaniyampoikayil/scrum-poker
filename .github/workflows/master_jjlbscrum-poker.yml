@@ -3,7 +3,6 @@ name: Build and deploy Angular and Node.js app to Azure Web App - jjlbscrum-poke
 on:
   push:
     branches:
-      - test-githug-actions
   workflow_dispatch:
 
 jobs:
@@ -31,7 +30,8 @@ jobs:
 
       - name: Prepare Deployment Package
         run: |
-          mkdir -p deployment
+          mkdir -p deployment/browser
+          mkdir -p deployment/api
           cp -r dist/poker-app/* deployment/browser/
           cp -r api/* deployment/api/
           cp nginx-azure.conf deployment/
