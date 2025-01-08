@@ -36,6 +36,7 @@ jobs:
           cp -r api/* deployment/
           cp nginx.conf deployment/
           cp startup.sh deployment/
+          chmod +x deployment/startup.sh
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
