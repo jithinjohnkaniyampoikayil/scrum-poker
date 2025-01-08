@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "baseHref": "/poker-app/",
+            "baseHref": "/",
             "outputPath": "dist/poker-app",
             "index": "projects/poker-app/src/index.html",
             "browser": "projects/poker-app/src/main.ts",

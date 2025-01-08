@@ -35,7 +35,7 @@ FROM nginx:alpine
 RUN rm -rf /usr/share/nginx/html/*
 
 # Copy the built applications to Nginx's public folder
-COPY --from=builder /app/dist/poker-app/browser /usr/share/nginx/html/poker-app
+COPY --from=builder /app/dist/poker-app/browser /usr/share/nginx/html
 
 # Copy the Node.js API
 COPY --from=api-builder /app/api /app/api
@@ -46,8 +46,8 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 # Install Node.js in the Nginx image to run the API
 RUN apk add --update nodejs npm
 
-# Expose port 80
-EXPOSE 4200 3000
+# Expose port 80 & 3000
+EXPOSE 80 3000
 
 # Start Nginx and Node.js API
 CMD nginx && node /app/api/src/server.js
