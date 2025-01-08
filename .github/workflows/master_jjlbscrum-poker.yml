@@ -28,7 +28,6 @@ jobs:
         run: |
           cd api
           npm install
-          
 
       - name: Prepare Deployment Package
         run: |
@@ -36,6 +35,7 @@ jobs:
           cp -r dist/poker-app/* deployment/
           cp -r api/* deployment/
           cp nginx.conf deployment/
+          cp startup.sh deployment/
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -64,3 +64,4 @@ jobs:
           app-name: jjlbscrum-poker
           slot-name: production
           package: deployment
+          startup-command: "/home/site/wwwroot/startup.sh"
