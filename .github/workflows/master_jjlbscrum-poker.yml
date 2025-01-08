@@ -3,6 +3,7 @@ name: Build and deploy Angular and Node.js app to Azure Web App - jjlbscrum-poke
 on:
   push:
     branches:
+      - test-githug-actions
   workflow_dispatch:
 
 jobs:
