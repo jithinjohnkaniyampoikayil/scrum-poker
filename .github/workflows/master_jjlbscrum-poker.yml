@@ -32,8 +32,8 @@ jobs:
       - name: Prepare Deployment Package
         run: |
           mkdir -p deployment
-          cp -r dist/poker-app/* deployment/
-          cp -r api/* deployment/
+          cp -r dist/poker-app/* deployment/browser/
+          cp -r api/* deployment/api/
           cp nginx-azure.conf deployment/
           cp startup.sh deployment/
           chmod +x deployment/startup.sh
@@ -63,6 +63,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: jjlbscrum-poker
-          slot-name: production
           package: deployment
           startup-command: "/home/site/wwwroot/startup.sh"
