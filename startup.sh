@@ -4,4 +4,4 @@
 nginx -g 'daemon off;' &
 
 # Start Node.js API
-node /home/site/wwwroot/api/src/server.js
+node /home/site/wwwroot/src/server.js
