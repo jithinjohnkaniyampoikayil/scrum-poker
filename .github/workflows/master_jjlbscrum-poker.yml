@@ -34,7 +34,7 @@ jobs:
           mkdir -p deployment
           cp -r dist/poker-app/* deployment/
           cp -r api/* deployment/
-          cp nginx.conf deployment/
+          cp nginx-azure.conf deployment/
           cp startup.sh deployment/
           chmod +x deployment/startup.sh
 
