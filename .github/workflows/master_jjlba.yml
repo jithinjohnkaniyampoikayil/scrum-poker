@@ -48,10 +48,14 @@ jobs:
           name: angular-node-app
           path: deployment
 
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
           app-name: jjlba
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_105F4F6CE03B4A7F9A14ADF40626971F }}
           package: deployment
           startup-command: "/home/site/wwwroot/startup.sh"
