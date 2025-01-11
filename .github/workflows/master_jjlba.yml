@@ -58,4 +58,4 @@ jobs:
         with:
           app-name: jjlba
           package: deployment
-          startup-command: "/home/site/wwwroot/startup.sh"
+          startup-command: "nginx -g 'daemon off;'"
