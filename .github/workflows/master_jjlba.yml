@@ -1,4 +1,4 @@
-name: Build and deploy Angular and Node.js app to Azure Web App - jjlbscrum-poker
+name: Build and deploy Angular app to Azure Web App
 
 on:
   push:
@@ -7,11 +7,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Source
+        uses: actions/checkout@v3
 
       - name: Set up Node.js version
         uses: actions/setup-node@v3
@@ -24,38 +25,9 @@ jobs:
       - name: Build Angular Project
         run: npm run build-poker
 
-      - name: Prepare Deployment Package
-        run: |
-          mkdir -p deployment
-          cp -r dist/poker-app/browser deployment/
-          cp nginx-azure.conf deployment/
-          cp startup.sh deployment/
-          chmod +x deployment/startup.sh
-
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
-        with:
-          name: angular-node-app
-          path: deployment
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-      - uses: actions/download-artifact@v3
-        with:
-          name: angular-node-app
-          path: deployment
-
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
           app-name: jjlba
-          package: deployment
-          startup-command: "nginx -g 'daemon off;'"
+          publish-profile: ${{ secrets.JJLBA }}
+          package: ./dist/poker-app/browser
