@@ -24,4 +24,4 @@ jobs:
         with:
           app-name: jjwfnode
           publish-profile: ${{ secrets.JJWNODE }}
-          package: ./api
+          package: ./api/src
