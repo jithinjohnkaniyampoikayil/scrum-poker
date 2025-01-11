@@ -9,7 +9,7 @@ app.use(cors());
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "http://localhost",
+    origin: "https://jjlba.azurewebsites.net/",
     methods: ["GET", "POST"],
   },
 });
@@ -111,5 +111,5 @@ io.on("connection", (socket) => {
   });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 80;
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
