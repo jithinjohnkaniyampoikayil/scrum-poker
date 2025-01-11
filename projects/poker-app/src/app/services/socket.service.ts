@@ -9,7 +9,7 @@ export class SocketService {
   private socket: Socket;
 
   constructor() {
-    this.socket = io('https://jjlba.azurewebsites.net:3000');
+    this.socket = io('https://jjlba.azurewebsites.net');
   }
 
   connect() {
