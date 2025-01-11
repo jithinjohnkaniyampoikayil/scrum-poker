@@ -9,7 +9,7 @@ export class SocketService {
   private socket: Socket;
 
   constructor() {
-    this.socket = io('http://localhost:3000'); // Replace with your server URL
+    this.socket = io('https://jjlba.azurewebsites.net');
   }
 
   connect() {
