@@ -39,6 +39,33 @@
           },
           "configurations": {
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/poker-app/src/environments/environment.ts",
+                  "with": "projects/poker-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kB",
+                  "maximumError": "4kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "docker": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/poker-app/src/environments/environment.ts",
+                  "with": "projects/poker-app/src/environments/environment.docker.ts"
+                }
+              ],
               "budgets": [
                 {
                   "type": "initial",
@@ -69,6 +96,9 @@
             },
             "development": {
               "buildTarget": "poker-app:build:development"
+            },
+            "docker": {
+              "browserTarget": "poker-app:build:docker"
             }
           },
           "defaultConfiguration": "development"
