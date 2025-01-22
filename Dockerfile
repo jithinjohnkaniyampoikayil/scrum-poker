@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Build the first application
-RUN npm run build-poker --prod --output-path=dist/poker-app --configuration=production
+RUN npm run build-poker-docker --output-path=dist/poker-app 
 
 
 #******* Stage 2: Build the Node.js API *******
@@ -50,4 +50,4 @@ RUN apk add --update nodejs npm
 EXPOSE 80 3000
 
 # Start Nginx and Node.js API
-CMD nginx && node /app/api/src/server.js
+CMD nginx && node /app/api/src/index.js

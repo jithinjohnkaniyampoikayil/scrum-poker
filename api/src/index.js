@@ -4,12 +4,28 @@ const socketIo = require("socket.io");
 const cors = require("cors");
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "*", // Allow all origins
+    methods: ["GET", "POST"],
+  })
+);
 
-const server = http.createServer(app);
+const server = http.createServer((req, res) => {
+  if (req.url === "/" && req.method === "GET") {
+    res.statusCode = 200;
+    res.setHeader("Content-Type", "application/json");
+    res.end(JSON.stringify({ message: "Hello, The node is up and running" }));
+  } else {
+    res.statusCode = 404;
+    res.setHeader("Content-Type", "text/plain");
+    res.end("Not Found\n");
+  }
+});
+
 const io = socketIo(server, {
   cors: {
-    origin: "http://localhost",
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });
