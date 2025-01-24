@@ -53,7 +53,7 @@
                 <mat-divider></mat-divider>
                 <app-admin *ngIf="room.isAdmin" [roomId]="room.id" (showVotes)="onShowVotes($event)"
                     (hideVotes)="onHideVotes($event)" (clearVotes)="onClearVotes($event)"
-                    (copyRoomId)="copyRoomId($event)"></app-admin>
+                    (copyRoomId)="copyToClipboard($event)"></app-admin>
                 <app-story-card [votes]="roomVotes[room.id] || []" [showVotes]="showVotes[room.id]"></app-story-card>
             </mat-card-content>
         </mat-card>

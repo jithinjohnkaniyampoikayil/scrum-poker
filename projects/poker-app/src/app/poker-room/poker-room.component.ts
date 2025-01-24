@@ -87,25 +87,73 @@ export class PokerRoomComponent implements OnInit {
     const newRoomId = uuidv4();
     this.rooms.push({ id: newRoomId, isAdmin: true });
     this.socketService.emit('createRoom', newRoomId);
-    this.copyRoomId(newRoomId);
+    this.copyToClipboard(newRoomId);
   }
 
   joinRoom() {
-    this.isRoomCreated = true;
     const roomId = this.roomForm.get('roomId')?.value;
-    if (roomId && !this.rooms.some((room) => room.id === roomId)) {
+    if (
+      roomId &&
+      this.rooms.length > 0 &&
+      !this.rooms.some((room) => room.id === roomId)
+    ) {
       this.rooms.push({ id: roomId, isAdmin: false });
       this.socketService.emit('joinRoom', roomId);
       this.roomForm.reset();
+      this.isRoomCreated = true;
+    } else {
+      this.snackBar.open(
+        'Error: Room ID do not exist. Try a valid room id',
+        'Close',
+        {
+          duration: 2000,
+        }
+      );
     }
   }
 
-  copyRoomId(roomId: string) {
-    navigator.clipboard.writeText(roomId).then(() => {
+  copyToClipboard(roomId: string): void {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard
+        .writeText(roomId)
+        .then(() => {
+          this.snackBar.open('Room ID copied to clipboard', 'Close', {
+            duration: 2000,
+          });
+        })
+        .catch((err) => {
+          this.snackBar.open('Error: unable to copy', 'Close', {
+            duration: 2000,
+          });
+        });
+    } else {
+      // Fallback method for older browsers
+      this.fallbackCopyTextToClipboard(roomId);
+    }
+  }
+
+  fallbackCopyTextToClipboard(text: string): void {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    // Avoid scrolling to bottom
+    textArea.style.top = '0';
+    textArea.style.left = '0';
+    textArea.style.position = 'fixed';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      const successful = document.execCommand('copy');
+      const msg = successful ? 'successful' : 'unsuccessful';
       this.snackBar.open('Room ID copied to clipboard', 'Close', {
         duration: 2000,
       });
-    });
+    } catch (err) {
+      this.snackBar.open('Error: unable to copy', 'Close', {
+        duration: 2000,
+      });
+    }
+    document.body.removeChild(textArea);
   }
 
   onUserJoined(username: string, room: string) {
