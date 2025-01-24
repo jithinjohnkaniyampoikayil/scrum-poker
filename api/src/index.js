@@ -125,6 +125,11 @@ io.on("connection", (socket) => {
     });
     console.log("Client disconnected");
   });
+
+  socket.on("checkRoom", (roomId) => {
+    const isValid = rooms.has(roomId);
+    socket.emit("roomValidity", isValid);
+  });
 });
 
 const PORT = process.env.PORT || 3000;

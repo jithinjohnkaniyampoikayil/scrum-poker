@@ -51,6 +51,7 @@ export class PokerRoomComponent implements OnInit {
   isUserJoined: boolean = false;
   private isDialogOpen = false;
   username: string = '';
+  roomId: string = '';
 
   constructor(
     private socketService: SocketService,
@@ -91,24 +92,28 @@ export class PokerRoomComponent implements OnInit {
   }
 
   joinRoom() {
-    const roomId = this.roomForm.get('roomId')?.value;
-    if (
-      roomId &&
-      this.rooms.length > 0 &&
-      !this.rooms.some((room) => room.id === roomId)
-    ) {
-      this.rooms.push({ id: roomId, isAdmin: false });
-      this.socketService.emit('joinRoom', roomId);
-      this.roomForm.reset();
-      this.isRoomCreated = true;
-    } else {
-      this.snackBar.open(
-        'Error: Room ID do not exist. Try a valid room id',
-        'Close',
-        {
-          duration: 2000,
+    this.roomId = this.roomForm.get('roomId')?.value;
+    if (this.roomId) {
+      this.socketService.checkRoomValidity(this.roomId, (isValid: boolean) => {
+        if (isValid && !this.rooms.some((room) => room.id === this.roomId)) {
+          this.rooms.push({ id: this.roomId, isAdmin: false });
+          this.socketService.emit('joinRoom', this.roomId);
+          this.roomForm.reset();
+          this.isRoomCreated = true;
+        } else {
+          this.snackBar.open(
+            'Error: Room ID does not exist. Try a valid room ID',
+            'Close',
+            {
+              duration: 2000,
+            }
+          );
         }
-      );
+      });
+    } else {
+      this.snackBar.open('Error: Room ID is required', 'Close', {
+        duration: 2000,
+      });
     }
   }
 

@@ -40,4 +40,11 @@ export class SocketService {
       });
     });
   }
+
+  checkRoomValidity(roomId: string, callback: (isValid: boolean) => void) {
+    this.socket.emit('checkRoom', roomId);
+    this.socket.on('roomValidity', (isValid: boolean) => {
+      callback(isValid);
+    });
+  }
 }
