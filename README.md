@@ -91,8 +91,6 @@ Building the Docker Image
 
    docker push xxxx/scrum-poker:latest
 
-4. Navigate to the project directory:
-
 ### Screeenshots
 
 ![alt text](images/image.png)
