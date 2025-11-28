@@ -1,3 +1,6 @@
+#docker build -t jithinjohnkaniyampoikayil/scrum-poker:3.0 .
+#docker run -d -p 8080:80 -p 3000:3000 jithinjohnkaniyampoikayil/scrum-poker:3.0
+
 # ***** Stage 1: Build the applications *****
 FROM node:18-alpine AS builder
 
