@@ -12,7 +12,12 @@ import { AdminComponent } from '../admin/admin.component';
 import { v4 as uuidv4 } from 'uuid';
 import { SocketService } from '../services/socket.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
@@ -59,7 +64,7 @@ export class PokerRoomComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.roomForm = this.formBuilder.group({
-      roomId: [''],
+      roomId: ['', Validators.required],
     });
   }
 

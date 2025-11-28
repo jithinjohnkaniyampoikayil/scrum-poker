@@ -1,61 +1,140 @@
-<mat-toolbar color="primary">
-    <mat-icon>casino</mat-icon>
-    <span>Scrum Poker Rooms</span>
+<mat-toolbar color="primary" class="app-toolbar">
+    <div class="toolbar-brand">
+        <div class="toolbar-icon">
+            <mat-icon>casino</mat-icon>
+        </div>
+        <div class="toolbar-copy">
+            <span class="title">Scrum Poker Rooms</span>
+            <span class="subtitle">Estimate together in real time</span>
+        </div>
+    </div>
     <span class="spacer"></span>
+    <button mat-stroked-button color="accent" class="toolbar-action" *ngIf="isRoomCreated"
+        (click)="createNewRoom()">
+        <mat-icon>add_circle</mat-icon>
+        <span>New room</span>
+    </button>
     <button *ngIf="isUserJoined" (click)="reload()" mat-icon-button aria-label="exit">
-        <mat-icon>exit_to_app</mat-icon>
+        <mat-icon>logout</mat-icon>
     </button>
 </mat-toolbar>
 
-<div class="new-room-container" *ngIf="!isRoomCreated">
+<div class="poker-room-shell">
+    <section class="hero-panel" *ngIf="!isRoomCreated">
+        <div class="hero-panel__content">
+            <p class="eyebrow">Plan smarter · Move faster</p>
+            <h1>Launch sleek poker rooms for every sprint</h1>
+            <p class="lede">
+                Spin up collaborative estimation rooms, invite the squad with a single link, and reveal votes in sync.
+            </p>
+            <div class="hero-panel__actions">
+                <button mat-flat-button color="primary" (click)="createNewRoom()">
+                    <mat-icon>bolt</mat-icon>
+                    <span>Create instant room</span>
+                </button>
+                <button mat-stroked-button color="accent" (click)="roomForm.reset()">
+                    <mat-icon>autorenew</mat-icon>
+                    <span>Clear join form</span>
+                </button>
+            </div>
+            <ul class="hero-panel__highlights">
+                <li>
+                    <mat-icon>group</mat-icon>
+                    <span>Unlimited teammates</span>
+                </li>
+                <li>
+                    <mat-icon>timer</mat-icon>
+                    <span>Reveal-ready controls</span>
+                </li>
+                <li>
+                    <mat-icon>share</mat-icon>
+                    <span>Shareable room links</span>
+                </li>
+            </ul>
+        </div>
 
-    <mat-card appearance="outlined">
-        <mat-card-content>
-            <button mat-raised-button color="primary" (click)="createNewRoom()">
-                Create New Room
-            </button>
-        </mat-card-content>
-    </mat-card>
-
-    <mat-card>
-        <mat-card-content>
-            OR
-        </mat-card-content>
-    </mat-card>
-
-    <mat-card appearance="outlined">
-        <mat-card-content>
-            <form [formGroup]="roomForm" (ngSubmit)="joinRoom()" style="display: flex; align-items: center;">
-                <mat-form-field style="flex: 1; margin-right: 16px;">
-                    <mat-label>Enter Room ID</mat-label>
-                    <input matInput formControlName="roomId" />
-                </mat-form-field>
-                <button style="margin-bottom: 18px;" mat-raised-button color="accent" type="submit">Join
-                    Room</button>
-            </form>
-        </mat-card-content>
-    </mat-card>
-
-</div>
-
-<!-- Rest of the template remains the same -->
-
-<mat-tab-group (selectedTabChange)="onRoomChange($event)">
-    <mat-tab *ngFor="let room of rooms" [label]="room.id">
-        <mat-card>
+        <mat-card class="hero-panel__card">
             <mat-card-header>
-                <mat-card-title>@if(isUserJoined){ Welcome <b>{{username}}</b>, you have been added to the} room {{
-                    room.id
-                    }}</mat-card-title>
+                <mat-card-title>Join an existing room</mat-card-title>
+                <mat-card-subtitle>Drop the shared room ID to jump right in.</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
-                <app-user-input [room]="room.id" (userJoined)="onUserJoined($event, room.id)"></app-user-input>
-                <mat-divider></mat-divider>
-                <app-admin *ngIf="room.isAdmin" [roomId]="room.id" (showVotes)="onShowVotes($event)"
-                    (hideVotes)="onHideVotes($event)" (clearVotes)="onClearVotes($event)"
-                    (copyRoomId)="copyToClipboard($event)"></app-admin>
-                <app-story-card [votes]="roomVotes[room.id] || []" [showVotes]="showVotes[room.id]"></app-story-card>
+                <form [formGroup]="roomForm" (ngSubmit)="joinRoom()" class="join-form">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Room ID</mat-label>
+                        <mat-icon matPrefix>key</mat-icon>
+                        <input matInput formControlName="roomId" placeholder="e.g. 0d62f320" autocomplete="off" />
+                        <mat-hint>Ask your facilitator for the generated code.</mat-hint>
+                        <mat-error *ngIf="roomForm.get('roomId')?.hasError('required')">
+                            Room ID is required to continue
+                        </mat-error>
+                    </mat-form-field>
+                    <button mat-flat-button color="accent" type="submit">
+                        <mat-icon>login</mat-icon>
+                        <span>Join room</span>
+                    </button>
+                </form>
             </mat-card-content>
         </mat-card>
-    </mat-tab>
-</mat-tab-group>
+    </section>
+
+    <section class="room-dashboard" *ngIf="rooms.length">
+        <mat-card class="room-dashboard__card">
+            <div>
+                <p class="eyebrow">Active rooms</p>
+                <h2>Switch between estimation sessions</h2>
+                <p class="description">
+                    Run multiple poker rooms or hop between teams without losing context.
+                </p>
+            </div>
+            <div class="room-dashboard__actions">
+                <button mat-stroked-button color="primary" (click)="createNewRoom()">
+                    <mat-icon>add_circle</mat-icon>
+                    <span>Open another room</span>
+                </button>
+                <button mat-stroked-button color="accent" (click)="reload()">
+                    <mat-icon>refresh</mat-icon>
+                    <span>Reset view</span>
+                </button>
+            </div>
+        </mat-card>
+
+        <mat-tab-group (selectedTabChange)="onRoomChange($event)" class="room-tabs">
+            <mat-tab *ngFor="let room of rooms" [label]="room.id">
+                <mat-card class="room-card">
+                    <mat-card-header>
+                        <div>
+                            <p class="eyebrow">Room ID</p>
+                            <mat-card-title>{{ room.id }}</mat-card-title>
+                            <mat-card-subtitle>
+                                @if(isUserJoined){
+                                Welcome back, <b>{{ username }}</b>. Ready to estimate!
+                                }@else{
+                                Share the code with your team to start planning.
+                                }
+                            </mat-card-subtitle>
+                        </div>
+                        <span class="room-chip" [class.room-chip--admin]="room.isAdmin">
+                            <mat-icon>{{ room.isAdmin ? 'shield' : 'group' }}</mat-icon>
+                            {{ room.isAdmin ? 'Facilitator' : 'Collaborator' }}
+                        </span>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="room-content">
+                            <app-user-input [room]="room.id" (userJoined)="onUserJoined($event, room.id)">
+                            </app-user-input>
+                            <mat-divider></mat-divider>
+                            <div class="room-controls">
+                                <app-admin *ngIf="room.isAdmin" [roomId]="room.id" (showVotes)="onShowVotes($event)"
+                                    (hideVotes)="onHideVotes($event)" (clearVotes)="onClearVotes($event)"
+                                    (copyRoomId)="copyToClipboard($event)"></app-admin>
+                                <app-story-card [votes]="roomVotes[room.id] || []" [showVotes]="showVotes[room.id]">
+                                </app-story-card>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </mat-tab>
+        </mat-tab-group>
+    </section>
+</div>

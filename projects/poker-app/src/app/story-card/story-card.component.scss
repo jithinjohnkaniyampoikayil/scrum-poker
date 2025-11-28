@@ -1,0 +1,91 @@
+.story-card mat-card-header {
+  align-items: center;
+}
+
+.reveal-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(16, 24, 40, 0.08);
+  font-weight: 600;
+  color: #475467;
+}
+
+.reveal-pill--active {
+  background: rgba(76, 175, 80, 0.16);
+  color: #2e7d32;
+}
+
+.votes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.vote-chip {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+.vote-chip--revealed {
+  border-color: rgba(76, 175, 80, 0.4);
+  box-shadow: 0 14px 35px rgba(76, 175, 80, 0.25);
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  color: #3f51b5;
+  background: rgba(63, 81, 181, 0.12);
+}
+
+.vote-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.vote-body .name {
+  font-weight: 600;
+}
+
+.vote-body .value {
+  font-size: 0.95rem;
+  color: var(--app-text-subtle);
+}
+
+.vote-chip--revealed .value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.state-icon {
+  color: rgba(15, 23, 42, 0.4);
+}
+
+.vote-chip--revealed .state-icon {
+  color: #ff9800;
+}
+
+.empty-state {
+  padding: 32px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: var(--app-text-subtle);
+}
+

@@ -1,14 +1,230 @@
-/* poker-room.component.css */
-mat-card {
-    margin: 20px;
+:host {
+  display: block;
+  min-height: 100vh;
 }
 
-.new-room-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px;
+.app-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 0 32px;
+  backdrop-filter: blur(12px);
+  background: rgba(63, 81, 181, 0.92);
+  box-shadow: 0 10px 30px rgba(63, 81, 181, 0.25);
 }
+
+.toolbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.toolbar-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.toolbar-icon mat-icon {
+  font-size: 28px;
+}
+
+.toolbar-copy {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.toolbar-copy .title {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.toolbar-copy .subtitle {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.toolbar-action mat-icon {
+  margin-right: 6px;
+}
+
 .spacer {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.poker-room-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.hero-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+  align-items: stretch;
+}
+
+.hero-panel__content {
+  padding: 32px;
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(63, 81, 181, 0.12), rgba(103, 58, 183, 0.12));
+  border: 1px solid rgba(63, 81, 181, 0.2);
+  box-shadow: var(--app-shadow-soft);
+}
+
+.hero-panel__content h1 {
+  margin: 0 0 12px;
+  font-size: clamp(2rem, 2.6vw, 2.6rem);
+}
+
+.hero-panel__content .lede {
+  margin-bottom: 24px;
+  color: var(--app-text-subtle);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.hero-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.hero-panel__actions button mat-icon {
+  margin-right: 6px;
+}
+
+.hero-panel__highlights {
+  display: flex;
+  gap: 18px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+.hero-panel__highlights li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  color: #1f2933;
+}
+
+.hero-panel__card mat-card-header {
+  padding-bottom: 0;
+}
+
+.join-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.join-form mat-form-field {
+  width: 100%;
+}
+
+.join-form button {
+  width: 100%;
+  height: 52px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.room-dashboard__card {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+  padding: 32px;
+}
+
+.room-dashboard__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.room-dashboard__actions button mat-icon {
+  margin-right: 6px;
+}
+
+.room-tabs {
+  margin-top: 16px;
+}
+
+.room-card {
+  margin: 24px 0 0;
+  padding: 8px;
+}
+
+.room-card mat-card-header {
+  align-items: center;
+}
+
+.room-card mat-card-header > div {
+  flex: 1;
+}
+
+.room-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(63, 81, 181, 0.12);
+  color: #3f51b5;
+  font-weight: 600;
+}
+
+.room-chip--admin {
+  background: rgba(103, 58, 183, 0.15);
+  color: #673ab7;
+}
+
+.room-card mat-card-subtitle {
+  color: var(--app-text-subtle);
+  margin-top: 6px;
+}
+
+.room-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 8px 4px 24px;
+}
+
+.room-controls {
+  display: grid;
+  gap: 24px;
+}
+
+@media (min-width: 960px) {
+  .room-controls {
+    grid-template-columns: 320px 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-toolbar {
+    padding: 0 16px;
+  }
+
+  .room-dashboard__card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }

@@ -1,14 +1,32 @@
-@if(!joined) {
-<mat-form-field>
-  <input matInput [(ngModel)]="username" placeholder="Enter your name" />
-</mat-form-field>
+<section class="user-input">
+  @if(!joined) {
+  <div class="user-input__form">
+    <p class="eyebrow">Step 1 · Introduce yourself</p>
+    <h3>Choose a display name</h3>
+    <p class="hint">We’ll use this label to keep votes personal.</p>
 
-<button mat-raised-button color="primary" (click)="join()">Enter</button>
-}@else{
-<div style="margin-top: 5%;margin-bottom: 5%;">
-  <button style="margin-left: 3%;" mat-fab aria-label="story piont" *ngFor="let point of storyPoints"
-    (click)="vote(point)">
-    {{ point }}
-  </button>
-</div>
-}
+    <mat-form-field appearance="outline">
+      <mat-label>Display name</mat-label>
+      <mat-icon matPrefix>person</mat-icon>
+      <input matInput [(ngModel)]="username" placeholder="e.g. Alex from QA" autocomplete="off" />
+      <mat-hint>Friendly reminder: teammates see exactly what you type.</mat-hint>
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" (click)="join()" [disabled]="!username.trim()">
+      <mat-icon>arrow_forward</mat-icon>
+      <span>Enter room</span>
+    </button>
+  </div>
+  }@else{
+  <div class="user-input__grid">
+    <p class="eyebrow">Step 2 · Pick a card</p>
+    <div class="points-grid">
+      <button mat-mini-fab color="primary" aria-label="story point" *ngFor="let point of storyPoints"
+        (click)="vote(point)">
+        {{ point }}
+      </button>
+    </div>
+    <p class="microcopy">Votes stay hidden until the facilitator reveals the stack.</p>
+  </div>
+  }
+</section>

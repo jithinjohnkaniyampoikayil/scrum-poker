@@ -1,15 +1,39 @@
-<mat-card>
+<mat-card class="story-card">
     <mat-card-header>
-        <mat-card-title>Votes</mat-card-title>
+        <div>
+            <p class="eyebrow">Votes</p>
+            <mat-card-title>Live estimation</mat-card-title>
+            <mat-card-subtitle *ngIf="!votes.length">Waiting for the first card.</mat-card-subtitle>
+        </div>
+        <span class="reveal-pill" [class.reveal-pill--active]="showVotes">
+            <mat-icon>{{ showVotes ? 'visibility' : 'lock' }}</mat-icon>
+            {{ showVotes ? 'Votes revealed' : 'Hidden' }}
+        </span>
     </mat-card-header>
     <mat-card-content>
-        <mat-list>
-            <mat-list-item *ngFor="let vote of votes">
-                <mat-icon matListItemIcon>face</mat-icon>
-                <div matListItemTitle>{{ vote.username }}: @if(showVotes){{{
-                    vote.vote}}}@else{<mat-icon>password</mat-icon>
-                    }</div>
-            </mat-list-item>
-        </mat-list>
+        <ng-container *ngIf="votes.length; else emptyVotes">
+            <div class="votes-grid">
+                <div class="vote-chip" *ngFor="let vote of votes" [class.vote-chip--revealed]="showVotes">
+                    <div class="avatar">{{ (vote.username | slice:0:1) | uppercase }}</div>
+                    <div class="vote-body">
+                        <span class="name">{{ vote.username }}</span>
+                        <span class="value">
+                            @if(showVotes){
+                            {{ vote.vote ?? '—' }}
+                            }@else{
+                            Hidden
+                            }
+                        </span>
+                    </div>
+                    <mat-icon class="state-icon">{{ showVotes ? 'celebration' : 'hourglass_bottom' }}</mat-icon>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #emptyVotes>
+            <div class="empty-state">
+                <mat-icon>hourglass_empty</mat-icon>
+                <p>No votes yet. Encourage the team to pick a card.</p>
+            </div>
+        </ng-template>
     </mat-card-content>
 </mat-card>

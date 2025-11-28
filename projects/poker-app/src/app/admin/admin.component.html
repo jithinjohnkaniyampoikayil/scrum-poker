@@ -1,12 +1,21 @@
-<button mat-raised-button color="primary" (click)="showVotes.emit(roomId)">
-    Show Votes
-</button>
-<button mat-raised-button color="primary" (click)="hideVotes.emit(roomId)">
-    Hide Votes
-</button>
-<button mat-raised-button color="primary" (click)="copyRoomId.emit(roomId)">
-    Copy Room ID
-</button>
-<button mat-raised-button color="accent" (click)="clearVotes.emit(roomId)">
-    Clear Votes
-</button>
+<section class="admin-panel">
+    <p class="eyebrow">Facilitator controls</p>
+    <div class="admin-panel__actions">
+        <button mat-stroked-button color="primary" (click)="showVotes.emit(roomId)">
+            <mat-icon>visibility</mat-icon>
+            <span>Show votes</span>
+        </button>
+        <button mat-stroked-button color="primary" (click)="hideVotes.emit(roomId)">
+            <mat-icon>visibility_off</mat-icon>
+            <span>Hide votes</span>
+        </button>
+        <button mat-stroked-button color="accent" (click)="copyRoomId.emit(roomId)">
+            <mat-icon>content_copy</mat-icon>
+            <span>Copy room ID</span>
+        </button>
+        <button mat-flat-button color="warn" (click)="clearVotes.emit(roomId)">
+            <mat-icon>delete_sweep</mat-icon>
+            <span>Clear votes</span>
+        </button>
+    </div>
+</section>

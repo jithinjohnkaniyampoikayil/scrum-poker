@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { SocketService } from '../services/socket.service';
 
 @Component({
@@ -15,8 +16,10 @@ import { SocketService } from '../services/socket.service';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatIconModule,
   ],
   templateUrl: `./user-input.component.html`,
+  styleUrls: ['./user-input.component.scss'],
 })
 export class UserInputComponent {
   @Output() userJoined = new EventEmitter<string>();

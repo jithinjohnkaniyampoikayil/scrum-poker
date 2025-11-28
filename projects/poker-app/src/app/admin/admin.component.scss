@@ -1,0 +1,20 @@
+.admin-panel {
+  padding: 16px 0;
+  border-radius: 18px;
+}
+
+.admin-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.admin-panel__actions button {
+  text-transform: none;
+  font-weight: 600;
+}
+
+.admin-panel__actions mat-icon {
+  margin-right: 6px;
+}
+
